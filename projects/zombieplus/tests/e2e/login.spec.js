@@ -7,7 +7,7 @@ let loginPage;
 let toast;
 let moviesPage;
 
-test.beforeEach(({ page }) => {
+test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     toast = new Toast(page);
     moviesPage = new MoviesPage(page);
