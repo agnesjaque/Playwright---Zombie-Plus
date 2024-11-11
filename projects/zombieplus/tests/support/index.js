@@ -1,17 +1,18 @@
 const { test: base} = require("@playwright/test");
-import { LoginPage } from "../pages/LoginPage";
-import { Toast } from "../pages/Component";
-import { MoviesPage } from "../pages/MoviesPage";
+import { Login } from "../actions/Login";
+import { Toast } from "../actions/Component";
+import { Movies } from "../actions/Movies";
 import  data  from "../support/fixtures/movies.json";
-import { LandingPage } from "../pages/LandingPage";
+import {Leads} from "../actions/Leads"
+
 
 const test = base.extend({
     page: async ({ page }, use) => {
         
         const context = page
-            context['landing'] = new LandingPage(page),
-            context['login'] = new LoginPage(page),
-            context['movies'] = new MoviesPage(page),
+            context['leads'] = new Leads(page),
+            context['login'] = new Login(page),
+            context['movies'] = new Movies(page),
             context['toast'] = new Toast(page)
 
         await use(page)
