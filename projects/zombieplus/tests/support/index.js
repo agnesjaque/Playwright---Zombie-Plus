@@ -3,6 +3,7 @@ import { Login } from "./actions/Login";
 import { Toast } from "./actions/Component";
 import { Movies } from "./actions/Movies";
 import {Leads} from "./actions/Leads"
+import { Api } from "./api";
 
 
 const test = base.extend({
@@ -14,8 +15,14 @@ const test = base.extend({
             context['movies'] = new Movies(page),
             context['toast'] = new Toast(page)
 
-        await use(page)
+        await use(context)
 
+        },
+        request: async ({request}, use) => {
+            const context = request
+            context['api'] = new Api(request)
+
+            await use(context)
         }
     }
 
