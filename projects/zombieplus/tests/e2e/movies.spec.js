@@ -12,23 +12,19 @@ test("deve poder cadastrar um novo filme", async ({ page }) => {
     const movie = data.create
     await page.login.do("admin@zombieplus.com", "pwd123", "Admin");
     await page.movies.create(movie);
-    await page.toast.containText("Cadastro realizado com sucesso");
+    await page.popup.haveText(`O filme '${movie.title}' foi adicionado ao catálogo.`);
 });
 
-test("deve poder cadastrar quando um título é duplicado", async ({ page, request }) => {
+test("não deve poder cadastrar quando um título é duplicado", async ({ page, request }) => {
 
     const movie = data.duplicate 
-    
-    await request.api.setToken();
     await request.api.postMovie(movie);
     
-//     await page.login.do("admin@zombieplus.com", "pwd123", "Admin");
-//     await page.movies.create(movie);
-//     await page.toast.containText("Cadastro realizado com sucesso");
+    await page.login.do("admin@zombieplus.com", "pwd123", "Admin");
+    await page.movies.create(movie);
+    await page.popup.haveText(`O título '${movie.title}' já consta em nosso catálogo. Por favor, verifique se há necessidade de atualizações ou correções para este item.`);
 
-//     await page.movies.create(movie);
-//     await page.toast.containText("Este conteúdo já encontra-se cadastrado no catálogo");
-});
+ });
 
 
 test("não deve cadastrar quando os campos obrigatórios não são preenchidos", async ({page}) => {
@@ -37,9 +33,9 @@ test("não deve cadastrar quando os campos obrigatórios não são preenchidos",
     await page.movies.goForm();
     await page.movies.submit();
     await page.movies.alertHaveText([
-        "Por favor, informe o título.",
-        "Por favor, informe a sinopse.",
-        "Por favor, informe a empresa distribuidora.",
-        "Por favor, informe o ano de lançamento."
+        "Campo obrigatório",
+        "Campo obrigatório",
+        "Campo obrigatório",
+        "Campo obrigatório"
     ])
 })
