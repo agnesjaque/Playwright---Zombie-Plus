@@ -6,6 +6,7 @@ export class Leads {
   }
 
   async visit() {
+    console.log('BASE_URL:', process.env.BASE_URL);
     await this.page.goto("/");
   }
 

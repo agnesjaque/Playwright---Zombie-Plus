@@ -23,7 +23,7 @@ test("não deve cadastrar quando o email já existe", async ({ page, request }) 
   const leadName = faker.person.fullName();
   const leadEmail = faker.internet.email();
 
-  const newlead = await request.post('http://localhost:3333/leads', {
+  const newlead = await request.post('/leads', {
     data: {
       name: leadName,
       email: leadEmail,

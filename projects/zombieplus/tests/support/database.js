@@ -1,16 +1,18 @@
+require('dotenv').config();
+
 import { Pool } from "pg";
 
 const DbConfig = {
 
-    user: 'postgres',
+    user: process.env.DB_USER,
 
-    host: 'localhost',
+    host: process.env.DB_HOST,
 
-    database: 'zombieplus',
+    database: process.env.DB_DATABASE,
 
-    password: 'pwd123',
+    password: process.env.DB_PASSWORD,
 
-    port: 5432
+    port: parseInt(process.env.DB_PORT, 10),
 
 }
 
