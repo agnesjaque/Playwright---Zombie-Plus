@@ -1,4 +1,4 @@
-const {expect} = require ('@playwright/test')
+const { expect } = require('@playwright/test')
 
 export class Api {
 
@@ -16,19 +16,14 @@ export class Api {
         })
 
         expect(response.ok()).toBeTruthy()
-
         const body = JSON.parse(await response.text())
-
         this.token = "Bearer " + body.token
     }
 
-    async getCompanyIdByName(companyName){
-        
-        await this.setToken();
-
-        const response = await this.request.get("http://localhost:3333/companies",{
+    async getCompanyIdByName(companyName) {
+        const response = await this.request.get("http://localhost:3333/companies", {
             headers: {
-                Authorization : this.token,
+                Authorization: this.token,
 
             },
             params: {
@@ -42,15 +37,12 @@ export class Api {
         return body.data[0].id
     }
 
-    async postMovie(movie){
+    async postMovie(movie) {
 
         const companyId = await this.getCompanyIdByName(movie.company)
-
-        await this.setToken();
-
-        const response = await this.request.post("http://localhost:3333/movies",{
+        const response = await this.request.post("http://localhost:3333/movies", {
             headers: {
-                Authorization : this.token,
+                Authorization: this.token,
                 ContentType: "multipart/form-data",
                 Accept: "application/json, text/plain, */*"
             },
