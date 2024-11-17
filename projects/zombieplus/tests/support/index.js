@@ -21,6 +21,7 @@ const test = base.extend({
         request: async ({request}, use) => {
             const context = request
             context['api'] = new Api(request)
+            await context['api'].setToken() //Unique token request
 
             await use(context)
         }
