@@ -51,10 +51,17 @@ export class Movies {
             .fill(target);
     }
 
-    async tableHave(content){
-        const rows = this.page.getByRole("row");
-        await expect(rows).toContainText(content);
+    async tableHave(expectedTitles) {
+        // Busca todas as células com a classe 'title' (onde os títulos estão)
+        const titleCells = await this.page.locator('td.title');
+        // Extrai os textos das células encontradas
+        const actualTitles = await titleCells.allTextContents();
+        // Valida se todos os títulos esperados estão presentes
+        for (const title of expectedTitles) {
+            await expect(actualTitles).toContain(title);
+        }
     }
+    
 
     async alertHaveText(target){
         await expect(this.page.locator(".alert")).toHaveText(target);
