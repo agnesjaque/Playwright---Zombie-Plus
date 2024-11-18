@@ -22,8 +22,8 @@ test("deve cadastrar um lead na fila de espera", async ({ page }) => {
 test("não deve cadastrar quando o email já existe", async ({ page, request }) => {
   const leadName = faker.person.fullName();
   const leadEmail = faker.internet.email();
-
-  const newlead = await request.post('/leads', {
+  
+  const newlead = await request.post('http://localhost:3333/leads', {
     data: {
       name: leadName,
       email: leadEmail,
@@ -31,14 +31,14 @@ test("não deve cadastrar quando o email já existe", async ({ page, request }) 
   });
 
   expect(newlead.ok()).toBeTruthy();
-
+  
   await page.leads.visit();
   await page.leads.openLeadModal();
   await page.leads.submitLeadForm(leadName, leadEmail);
 
   const message = "Verificamos que o endereço de e-mail fornecido já consta em nossa lista de espera. Isso significa que você está um passo mais perto de aproveitar nossos serviços.";
   await page.popup.haveText(message);
-});
+ });
 
 test("não deve cadastrar um email incorreto", async ({ page }) => {
 
