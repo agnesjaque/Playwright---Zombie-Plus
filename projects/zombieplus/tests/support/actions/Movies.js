@@ -16,7 +16,7 @@ export class Movies {
         await this.page.getByRole("button", { name: "Cadastrar" }).click();
     }
 
-    async create(movie) { //snake case por causa da modelagem do DB
+    async create(movie) { 
         await this.goForm();
 
         await this.page.getByLabel("Titulo do filme").fill(movie.title);
